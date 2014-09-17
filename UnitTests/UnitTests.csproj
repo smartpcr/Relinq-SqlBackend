@@ -162,6 +162,7 @@
     <Compile Include="BooleanUtilityTest.cs" />
     <Compile Include="CustomCompositeExpression.cs" />
     <Compile Include="ConversionUtilityTest.cs" />
+    <Compile Include="ExpressionObjectMother.cs" />
     <Compile Include="ExtensionExpressionTestHelper.cs" />
     <Compile Include="MappingResolution\CompoundExpressionComparisonSplitterTest.cs" />
     <Compile Include="MappingResolution\EntityIdentityResolverTest.cs" />
