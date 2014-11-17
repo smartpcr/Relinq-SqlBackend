@@ -51,16 +51,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
     }
 
     [Test]
-    public void ApplyContext_UnresolvedTableInfo ()
-    {
-      var tableInfo = new UnresolvedTableInfo (typeof (Cook));
-
-      var result = SqlContextTableInfoVisitor.ApplyContext (tableInfo, SqlExpressionContext.ValueRequired, _stageMock, _mappingresolutionContext);
-
-      Assert.That (result, Is.SameAs (tableInfo));
-    }
-
-    [Test]
     public void ApplyContext_ResolvedSubStatementTableInfo_SameTableInfo ()
     {
       var subStatement = SqlStatementModelObjectMother.CreateSqlStatement_Resolved (typeof (Cook));
@@ -174,6 +164,24 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
 
       _stageMock.VerifyAllExpectations ();
       Assert.That (((SqlJoinedTable) result).JoinInfo, Is.SameAs (fakeJoinInfo));
+    }
+
+    [Test]
+    [ExpectedException (typeof (InvalidOperationException), ExpectedMessage = "UnresolvedTableInfo is not valid at this point.")]
+    public void ApplyContext_UnresolvedTableInfo ()
+    {
+      var tableInfo = SqlStatementModelObjectMother.CreateUnresolvedTableInfo();
+     
+      SqlContextTableInfoVisitor.ApplyContext (tableInfo, SqlExpressionContext.ValueRequired, _stageMock, _mappingresolutionContext);
+    }
+
+    [Test]
+    [ExpectedException (typeof (InvalidOperationException), ExpectedMessage = "UnresolvedJoinTableInfo is not valid at this point.")]
+    public void ApplyContext_UnresolvedJoinTableInfo ()
+    {
+      var tableInfo = SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo();
+     
+      SqlContextTableInfoVisitor.ApplyContext (tableInfo, SqlExpressionContext.ValueRequired, _stageMock, _mappingresolutionContext);
     }
 
     [Test]

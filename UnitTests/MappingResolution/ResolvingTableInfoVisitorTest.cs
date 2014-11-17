@@ -68,7 +68,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
       Assert.That (result, Is.SameAs (resolvedTableInfo));
     }
 
-   [Test]
+    [Test]
     public void ResolveTableInfo_Unresolved_RevisitsResult_OnlyIfDifferent ()
     {
       _resolverMock
@@ -80,6 +80,28 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
 
       Assert.That (result, Is.SameAs (_resolvedTableInfo));
       _resolverMock.VerifyAllExpectations();
+    }
+
+    [Test]
+    public void VisitUnresolvedJoinTableInfo_ResolvesJoin_AndRevisitsResult ()
+    {
+      var unresolvedJoinTableInfo = SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo_KitchenCook();
+      _resolverMock
+          .Expect (mock => mock.ResolveJoinTableInfo (unresolvedJoinTableInfo, _generator))
+          .Return (_unresolvedTableInfo);
+      _resolverMock
+          .Expect (mock => mock.ResolveTableInfo (_unresolvedTableInfo, _generator))
+          .Return (_resolvedTableInfo);
+
+      var result = ResolvingTableInfoVisitor.ResolveTableInfo (
+          unresolvedJoinTableInfo,
+          _resolverMock,
+          _generator,
+          _stageMock,
+          _mappingResolutionContext);
+
+      _resolverMock.VerifyAllExpectations();
+      Assert.That (result, Is.SameAs (_resolvedTableInfo));
     }
 
     [Test]

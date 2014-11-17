@@ -345,6 +345,15 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration
     }
 
     [Test]
+    public void GenerateSql_WithUnresolvedJoinTableInfo_RaisesException ()
+    {
+      var sqlTable = SqlStatementModelObjectMother.CreateSqlTable (SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo());
+      Assert.That (
+          () => SqlTableAndJoinTextGenerator.GenerateSql (sqlTable, _commandBuilder, _stageMock, false),
+          Throws.TypeOf<InvalidOperationException>().With.Message.EqualTo ("UnresolvedJoinTableInfo is not valid at this point."));
+    }
+
+    [Test]
     public void GenerateSql_WithUnresolvedJoinInfo ()
     {
       var originalTable = new SqlTable (new ResolvedSimpleTableInfo (typeof (Cook), "CookTable", "c"), JoinSemantics.Inner);
