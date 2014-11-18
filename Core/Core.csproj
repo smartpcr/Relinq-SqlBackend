@@ -273,6 +273,7 @@
     <Compile Include="SqlStatementModel\SqlTableBase.cs" />
     <Compile Include="SqlStatementModel\Unresolved\ISqlEntityRefMemberExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\ISqlTableReferenceExpressionVisitor.cs" />
+    <Compile Include="SqlStatementModel\Unresolved\IUnresolvedJoinConditionExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\IUnresolvedSqlExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\JoinConditionExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\SqlEntityRefMemberExpression.cs" />
