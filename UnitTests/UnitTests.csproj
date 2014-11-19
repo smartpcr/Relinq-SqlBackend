@@ -296,6 +296,7 @@
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlInExpressionTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinInfoTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedGroupReferenceTableInfoTest.cs" />
+    <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinTableInfoTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinTableInfoTest.cs" />
     <Compile Include="TestDomain\Chef.cs" />
     <Compile Include="TestDomain\Company.cs" />

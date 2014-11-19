@@ -20,7 +20,6 @@ using NUnit.Framework;
 using Remotion.Linq.SqlBackend.MappingResolution;
 using Remotion.Linq.SqlBackend.SqlStatementModel;
 using Remotion.Linq.SqlBackend.SqlStatementModel.Resolved;
-using Remotion.Linq.SqlBackend.SqlStatementModel.Unresolved;
 using Remotion.Linq.SqlBackend.UnitTests.SqlStatementModel;
 using Remotion.Linq.SqlBackend.UnitTests.TestDomain;
 using Rhino.Mocks;
@@ -180,6 +179,15 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
     public void ApplyContext_UnresolvedJoinTableInfo ()
     {
       var tableInfo = SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo();
+     
+      SqlContextTableInfoVisitor.ApplyContext (tableInfo, SqlExpressionContext.ValueRequired, _stageMock, _mappingresolutionContext);
+    }
+
+    [Test]
+    [ExpectedException (typeof (InvalidOperationException), ExpectedMessage = "UnresolvedCollectionJoinTableInfo is not valid at this point.")]
+    public void ApplyContext_UnresolvedCollectionJoinTableInfo ()
+    {
+      var tableInfo = SqlStatementModelObjectMother.CreateUnresolvedCollectionJoinTableInfo();
      
       SqlContextTableInfoVisitor.ApplyContext (tableInfo, SqlExpressionContext.ValueRequired, _stageMock, _mappingresolutionContext);
     }
