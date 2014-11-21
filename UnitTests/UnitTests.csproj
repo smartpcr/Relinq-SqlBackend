@@ -291,6 +291,7 @@
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlCaseExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlRowNumberExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlStatementBuilderTest.cs" />
+    <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinConditionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinConditionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\JoinConditionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlInExpressionTest.cs" />

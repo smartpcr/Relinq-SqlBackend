@@ -273,6 +273,7 @@
     <Compile Include="SqlStatementModel\SqlTableBase.cs" />
     <Compile Include="SqlStatementModel\Unresolved\ISqlEntityRefMemberExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\ISqlTableReferenceExpressionVisitor.cs" />
+    <Compile Include="SqlStatementModel\Unresolved\IUnresolvedCollectionJoinConditionExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\IUnresolvedJoinConditionExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\IUnresolvedSqlExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\JoinConditionExpression.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinTableInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedGroupReferenceTableInfo.cs" />
+    <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinConditionExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinConditionExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinTableInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinInfo.cs" />
