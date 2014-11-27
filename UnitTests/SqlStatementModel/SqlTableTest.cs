@@ -69,18 +69,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlStatementModel
     }
 
     [Test]
-    public void Accept_VisitorSupportingExpressionType ()
-    {
-      var visitorMock = MockRepository.GenerateMock<ISqlTableBaseVisitor>();
-      visitorMock.Expect (mock => mock.VisitSqlTable (_sqlTable));
-      visitorMock.Replay();
-
-      _sqlTable.Accept (visitorMock);
-
-      visitorMock.VerifyAllExpectations();
-    }
-
-    [Test]
     public void ToString_WithoutJoins ()
     {
       var result = _sqlTable.ToString ();

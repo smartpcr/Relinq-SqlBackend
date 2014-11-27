@@ -205,7 +205,6 @@
     <Compile Include="SqlStatementModel\INamedExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\ISqlGroupingSelectExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\ISqlSubStatementVisitor.cs" />
-    <Compile Include="MappingResolution\ISqlTableBaseVisitor.cs" />
     <Compile Include="MappingResolution\ResolvingExpressionVisitor.cs" />
     <Compile Include="MappingResolution\ResolvingTableInfoVisitor.cs" />
     <Compile Include="MappingResolution\SqlStatementResolver.cs" />
