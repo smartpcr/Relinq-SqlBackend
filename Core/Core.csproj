@@ -119,7 +119,6 @@
     <Compile Include="MappingResolution\MemberAccessResolver.cs" />
     <Compile Include="MappingResolution\NamedExpressionCombiner.cs" />
     <Compile Include="MappingResolution\ResolvingSelectExpressionVisitor.cs" />
-    <Compile Include="MappingResolution\SqlContextJoinInfoVisitor.cs" />
     <Compile Include="MappingResolution\SqlContextSelectionAdjuster.cs" />
     <Compile Include="MappingResolution\SqlContextTableInfoVisitor.cs" />
     <Compile Include="MappingResolution\SubStatementReferenceResolver.cs" />
@@ -203,13 +202,11 @@
     <Compile Include="SqlStatementModel\Resolved\SqlConvertedBooleanExpression.cs" />
     <Compile Include="SqlStatementModel\IAggregationExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Resolved\ISqlConvertedBooleanExpressionVisitor.cs" />
-    <Compile Include="SqlStatementModel\IJoinConditionExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\INamedExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\ISqlGroupingSelectExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\ISqlSubStatementVisitor.cs" />
     <Compile Include="MappingResolution\ISqlTableBaseVisitor.cs" />
     <Compile Include="MappingResolution\ResolvingExpressionVisitor.cs" />
-    <Compile Include="MappingResolution\ResolvingJoinInfoVisitor.cs" />
     <Compile Include="MappingResolution\ResolvingTableInfoVisitor.cs" />
     <Compile Include="MappingResolution\SqlStatementResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,9 +228,7 @@
     <Compile Include="SqlPreparation\SqlPreparationExpressionVisitor.cs" />
     <Compile Include="SqlPreparation\SqlPreparationFromExpressionVisitor.cs" />
     <Compile Include="SqlPreparation\SqlPreparationQueryModelVisitor.cs" />
-    <Compile Include="SqlStatementModel\IJoinInfo.cs" />
     <Compile Include="SqlStatementModel\ITableInfo.cs" />
-    <Compile Include="SqlStatementModel\IJoinInfoVisitor.cs" />
     <Compile Include="SqlStatementModel\ITableInfoVisitor.cs" />
     <Compile Include="SqlStatementModel\JoinCardinality.cs" />
     <Compile Include="SqlStatementModel\JoinSemantics.cs" />
@@ -241,7 +236,6 @@
     <Compile Include="SqlStatementModel\Resolved\IResolvedSqlExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Resolved\IResolvedTableInfo.cs" />
     <Compile Include="SqlStatementModel\Resolved\ISqlColumnExpressionVisitor.cs" />
-    <Compile Include="SqlStatementModel\Resolved\ResolvedJoinInfo.cs" />
     <Compile Include="SqlStatementModel\Resolved\ResolvedSimpleTableInfo.cs" />
     <Compile Include="SqlStatementModel\Resolved\ResolvedSubStatementTableInfo.cs" />
     <Compile Include="SqlStatementModel\Resolved\SqlColumnDefinitionExpression.cs" />
@@ -252,7 +246,6 @@
     <Compile Include="SqlStatementModel\Resolved\SqlEntityExpression.cs" />
     <Compile Include="SqlStatementModel\Resolved\SqlEntityReferenceExpression.cs" />
     <Compile Include="SqlStatementModel\Resolved\ResolvedJoinedGroupingTableInfo.cs" />
-    <Compile Include="SqlStatementModel\SqlJoinedTable.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\ISqlSpecificExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlCollectionExpression.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlConvertExpression.cs" />
@@ -276,16 +269,13 @@
     <Compile Include="SqlStatementModel\Unresolved\IUnresolvedCollectionJoinConditionExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\IUnresolvedJoinConditionExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\IUnresolvedSqlExpressionVisitor.cs" />
-    <Compile Include="SqlStatementModel\Unresolved\JoinConditionExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\SqlEntityRefMemberExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\SqlTableReferenceExpression.cs" />
-    <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinTableInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedGroupReferenceTableInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinConditionExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinConditionExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinTableInfo.cs" />
-    <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedTableInfo.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Utilities\ReflectionUtility.cs" />

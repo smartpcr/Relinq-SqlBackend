@@ -171,7 +171,6 @@
     <Compile Include="MappingResolution\MemberAccessResolverTest.cs" />
     <Compile Include="MappingResolution\NamedExpressionCombinerTest.cs" />
     <Compile Include="MappingResolution\ResolvingSelectExpressionVisitorTest.cs" />
-    <Compile Include="MappingResolution\SqlContextJoinInfoVisitorTest.cs" />
     <Compile Include="MappingResolution\SqlContextSelectionAdjusterTest.cs" />
     <Compile Include="MappingResolution\SqlContextTableInfoVisitorTest.cs" />
     <Compile Include="MappingResolution\SubStatementReferenceResolverTest.cs" />
@@ -293,9 +292,7 @@
     <Compile Include="SqlStatementModel\SqlStatementBuilderTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinConditionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinConditionExpressionTest.cs" />
-    <Compile Include="SqlStatementModel\Unresolved\JoinConditionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlInExpressionTest.cs" />
-    <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinInfoTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedGroupReferenceTableInfoTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinTableInfoTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinTableInfoTest.cs" />
@@ -314,7 +311,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MappingResolution\DefaultMappingResolutionStageTest.cs" />
-    <Compile Include="MappingResolution\ResolvingJoinInfoVisitorTest.cs" />
     <Compile Include="MappingResolution\SqlStatementResolverTest.cs" />
     <Compile Include="MappingResolution\TestableSqlStatementResolver.cs" />
     <Compile Include="SqlGeneration\BinaryExpressionTextGeneratorTest.cs" />
@@ -346,13 +342,10 @@
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlLiteralExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlSubStatementExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlTableBaseTest.cs" />
-    <Compile Include="SqlStatementModel\SqlJoinedTableTest.cs" />
-    <Compile Include="SqlStatementModel\Resolved\ResolvedJoinInfoTest.cs" />
     <Compile Include="SqlStatementModel\SqlStatementTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedTableInfoTest.cs" />
     <Compile Include="CustomExpression.cs" />
     <Compile Include="MappingResolution\ResolvingExpressionVisitorTest.cs" />
-    <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinInfoTest.cs" />
     <Compile Include="SqlStatementModel\Resolved\SqlEntityDefinitionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\Resolved\SqlColumnDefinitionExpressionTest.cs" />
     <Compile Include="SqlPreparation\SqlPreparationContextTest.cs" />
