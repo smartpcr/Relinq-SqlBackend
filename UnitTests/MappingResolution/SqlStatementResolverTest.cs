@@ -133,6 +133,27 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
     }
 
     [Test]
+    public void ResolveSqlTable_WithAlreadyResolvedJoinConditions_LeavesJoinsUntouchtes ()
+    {
+      var joinedTable = SqlStatementModelObjectMother.CreateSqlTable (SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo_KitchenCook());
+      var joinCondition = ExpressionHelper.CreateExpression (typeof (bool));
+      var originalJoin = new SqlJoin (joinedTable, JoinSemantics.Left, joinCondition);
+      _sqlTable.AddJoin (originalJoin);
+
+      _stageMock
+          .Stub (mock => mock.ResolveTableInfo (Arg<ITableInfo>.Is.Anything, Arg<IMappingResolutionContext>.Is.Anything))
+          .Return (_fakeResolvedSimpleTableInfo);
+      _stageMock
+          .Expect (mock => mock.ResolveJoinCondition (joinCondition, _mappingResolutionContext))
+          .Return (joinCondition);
+
+      _visitor.ResolveSqlTable (_sqlTable);
+
+      _stageMock.VerifyAllExpectations();
+      Assert.That (_sqlTable.OrderedJoins.Single(), Is.SameAs (originalJoin));
+    }
+
+    [Test]
     public void ResolveSelectProjection_ResolvesExpression ()
     {
       var expression = new SqlTableReferenceExpression (_sqlTable);
