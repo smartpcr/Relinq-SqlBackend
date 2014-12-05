@@ -69,11 +69,7 @@ namespace Remotion.Linq.LinqToSqlAdapter.UnitTests
           .Return (21);
       PrepareReverseMapping (typeof (PersonTestClass));
 
-      var columnIDs = new[]
-                      {
-                          new ColumnID ("FirstName", 1),
-                          new ColumnID ("Age", 2)
-                      };
+      var columnIDs = GetColumnIDsForPersonTestClass();
 
       var rowWrapper = new RowWrapper (_readerMock, _reverseMappingResolverMock);
 
@@ -85,8 +81,47 @@ namespace Remotion.Linq.LinqToSqlAdapter.UnitTests
     }
 
     [Test]
+    public void GetEntity_NullValue ()
+    {
+      _readerMock
+          .Expect (mock => mock.GetValue (1))
+          .Return (null);
+      PrepareReverseMapping (typeof (PersonTestClass));
+
+      var columnIDs = GetColumnIDsForPersonTestClass();
+
+      var rowWrapper = new RowWrapper (_readerMock, _reverseMappingResolverMock);
+
+      var instance = rowWrapper.GetEntity<PersonTestClass> (columnIDs);
+
+      _readerMock.VerifyAllExpectations();
+      Assert.That (instance, Is.Null);
+    }
+
+    [Test]
+    public void GetEntity_TypeWithoutPrimaryKey ()
+    {
+      _readerMock
+          .Expect (mock => mock.GetValue (1))
+          .Return (null);
+      PrepareReverseMapping (typeof (PersonTestClass));
+
+      var columnIDs = GetColumnIDsForPersonTestClass();
+
+      var rowWrapper = new RowWrapper (_readerMock, _reverseMappingResolverMock);
+
+      var instance = rowWrapper.GetEntity<PersonTestClass> (columnIDs);
+
+      _readerMock.VerifyAllExpectations();
+      Assert.That (instance, Is.Null);
+    }
+
+    [Test]
     public void GetEntity_CreatesInstanceAccordingToDiscriminatorColumn ()
     {
+      _readerMock
+          .Expect (mock => mock.GetValue (1))
+          .Return (1);
       _readerMock
           .Expect (mock => mock.GetValue (2))
           .Return ("Customer"); //return value of discriminator column
@@ -110,6 +145,9 @@ namespace Remotion.Linq.LinqToSqlAdapter.UnitTests
     [Test]
     public void GetEntity_CreateDefaultInstanceIfDiscriminatorIsNull ()
     {
+      _readerMock
+          .Expect (mock => mock.GetValue (1))
+          .Return (1);
       _readerMock
           .Expect (mock => mock.GetValue (2))
           .Return (null); //return value of discriminator column
@@ -185,7 +223,8 @@ namespace Remotion.Linq.LinqToSqlAdapter.UnitTests
           .Return (photo);
       _readerMock
           .Expect (mock => mock.GetValue (3))
-          .Return (1); //return value of discriminator column
+          .Return (1);
+      //return value of discriminator column
       _readerMock
           .Expect (mock => mock.GetValue (4))
           .Return ("Employee");
@@ -223,6 +262,15 @@ namespace Remotion.Linq.LinqToSqlAdapter.UnitTests
       _reverseMappingResolverMock
           .Expect (mock => mock.GetMetaDataMembers (entityType))
           .Return (_metaModel.GetTable (entityType).RowType.DataMembers.Where (dataMember => !dataMember.IsAssociation).ToArray());
+    }
+
+      private ColumnID[] GetColumnIDsForPersonTestClass ()
+    {
+      return new[]
+             {
+                 new ColumnID ("FirstName", 1),
+                 new ColumnID ("Age", 2)
+             };
     }
   }
 }
