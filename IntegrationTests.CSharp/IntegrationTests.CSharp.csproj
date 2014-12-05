@@ -100,6 +100,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="SystemTests\CustomProjectionTests.cs" />
+    <Compile Include="SystemTests\DefaultIfEmptyTests.cs" />
     <Compile Include="SystemTests\ExplicitJoinsTests.cs" />
     <Compile Include="SystemTests\GroupByTests.cs" />
     <Compile Include="SystemTests\ImplicitJoinTests.cs" />
@@ -293,6 +294,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SystemTests\Resources\CustomProjectionTests.SingleValueType_Nullable.result">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SystemTests\Resources\DefaultIfEmptyTests.DefaultIfEmpty_ForLeftJoin_WithDependentSubQuery.result">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SystemTests\Resources\DefaultIfEmptyTests.DefaultIfEmpty_ForLeftJoin_WithFromClause.result">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SystemTests\Resources\DefaultIfEmptyTests.DefaultIfEmpty_ForLeftJoin_WithJoinClause.result">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SystemTests\Resources\ExplicitJoinsTests.ExplicitJoin.result">
