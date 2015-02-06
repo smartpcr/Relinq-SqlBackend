@@ -279,6 +279,7 @@
     <Compile Include="SqlStatementModel\Resolved\SqlColumnReferenceExpressionTest.cs" />
     <Compile Include="SqlStatementModel\Resolved\SqlEntityReferenceExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlGroupingSelectExpressionTest.cs" />
+    <Compile Include="SqlStatementModel\SqlAppendedTableTest.cs" />
     <Compile Include="SqlStatementModel\SqlJoinTest.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlCollectionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlConvertExpressionTest.cs" />
