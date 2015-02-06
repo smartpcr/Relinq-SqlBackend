@@ -288,7 +288,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
           .Expect (mock => mock.ResolveOrderingExpression(ordering.Expression, _mappingResolutionContext))
           .Return (fakeOrderExpression);
       _stageMock
-          .Expect (mock => mock.ResolveTableInfo(sqlStatement.SqlTables[0].TableInfo, _mappingResolutionContext))
+          .Expect (mock => mock.ResolveTableInfo(sqlStatement.SqlTables[0].SqlTable.TableInfo, _mappingResolutionContext))
           .Return (new ResolvedSimpleTableInfo(typeof(Cook), "CookTable", "c"));
       _stageMock
           .Expect (mock => mock.ResolveSqlStatement (setOperationCombinedStatement.SqlStatement, _mappingResolutionContext))
@@ -347,8 +347,8 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
           .Expect (mock => mock.ResolveOrderingExpression(ordering.Expression, _mappingResolutionContext))
           .Return (ordering.Expression);
       _stageMock
-          .Expect (mock => mock.ResolveTableInfo(sqlStatement.SqlTables[0].TableInfo, _mappingResolutionContext))
-          .Return ((IResolvedTableInfo) sqlStatement.SqlTables[0].TableInfo);
+          .Expect (mock => mock.ResolveTableInfo(sqlStatement.SqlTables[0].SqlTable.TableInfo, _mappingResolutionContext))
+          .Return ((IResolvedTableInfo) sqlStatement.SqlTables[0].SqlTable.TableInfo);
       _stageMock
           .Expect (mock => mock.ResolveSqlStatement (setOperationCombinedStatement.SqlStatement, _mappingResolutionContext))
           .Return (setOperationCombinedStatement.SqlStatement);

@@ -34,12 +34,14 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration
     private TestableSqlStatementTextGenerator _generator;
     private SqlCommandBuilder _commandBuilder;
     private ISqlGenerationStage _stageMock;
-    private SqlTable _sqlTable;
+    private SqlAppendedTable _sqlTable;
 
     [SetUp]
     public void SetUp ()
     {
-      _sqlTable = SqlStatementModelObjectMother.CreateSqlTable_WithResolvedTableInfo();
+      _sqlTable = SqlStatementModelObjectMother.CreateSqlAppendedTable (
+          SqlStatementModelObjectMother.CreateSqlTable_WithResolvedTableInfo(),
+          JoinSemantics.Inner);
       _stageMock = MockRepository.GenerateStrictMock<ISqlGenerationStage>();
       _generator = new TestableSqlStatementTextGenerator (_stageMock);
       _commandBuilder = new SqlCommandBuilder();
