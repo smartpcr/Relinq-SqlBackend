@@ -80,7 +80,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlStatementModel.Resolved
     [Test]
     public void ResolveReference ()
     {
-      var sqlTable = new SqlTable (_tableInfo, JoinSemantics.Inner);
+      var sqlTable = new SqlTable (_tableInfo);
 
       var generator = new UniqueIdentifierGenerator ();
       var resolverMock = MockRepository.GenerateStrictMock<IMappingResolver> ();

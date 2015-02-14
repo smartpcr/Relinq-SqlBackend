@@ -59,7 +59,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection,
           OrderingExtractionPolicy.DoNotExtractOrderings);
 
-      _tableGenerator = info => new SqlTable (info, JoinSemantics.Inner);
+      _tableGenerator = info => new SqlTable (info);
     }
 
     [Test]
@@ -266,7 +266,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
     [Test]
     public void VisitSqlTableReferenceExpression_Grouping ()
     {
-      var sqlTable = new SqlTable (new ResolvedSimpleTableInfo (typeof (IGrouping<string, int>), "test", "t0"), JoinSemantics.Inner);
+      var sqlTable = new SqlTable (new ResolvedSimpleTableInfo (typeof (IGrouping<string, int>), "test", "t0"));
       var expression = new SqlTableReferenceExpression (sqlTable);
 
       var result = SqlPreparationFromExpressionVisitor.AnalyzeFromExpression (

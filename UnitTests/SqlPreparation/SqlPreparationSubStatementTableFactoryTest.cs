@@ -69,7 +69,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       var result = _factory.CreateSqlTableForStatement (
           statementWithoutOrderings,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
@@ -98,7 +98,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       var result = _factory.CreateSqlTableForStatement (
           _statementWithOrderings,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
@@ -134,7 +134,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       var result = _factory.CreateSqlTableForStatement (
           _statementWithOrderings,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
@@ -156,7 +156,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       var result = _factory.CreateSqlTableForStatement (
           _statementWithOrderings,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
@@ -213,7 +213,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       _factory.CreateSqlTableForStatement (
           _statementWithOrderings,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
@@ -237,7 +237,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       var result = _factory.CreateSqlTableForStatement (
           statement,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
@@ -261,7 +261,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       _factory.CreateSqlTableForStatement (
           _statementWithOrderings,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
     }
 
@@ -270,7 +270,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
     {
       var result = _factory.CreateSqlTableForStatement (
           _statementWithOrderings,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.DoNotExtractOrderings);
 
       _stageMock.VerifyAllExpectations ();
@@ -297,7 +297,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
 
       var result = _factory.CreateSqlTableForStatement (
           statementWithOrderingsAndTopExpression,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           OrderingExtractionPolicy.DoNotExtractOrderings);
 
       _stageMock.VerifyAllExpectations ();

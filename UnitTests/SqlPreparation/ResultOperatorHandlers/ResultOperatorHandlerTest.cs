@@ -60,7 +60,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
       var originalStatement = _statementBuilder.GetSqlStatement ();
 
       var fakeFromExpressionInfo = CreateFakeFromExpressionInfo(new Ordering[0]);
-      Func<ITableInfo, SqlTable> tableGenerator = info => new SqlTable (info, JoinSemantics.Inner);
+      Func<ITableInfo, SqlTable> tableGenerator = info => new SqlTable (info);
 
       var someOrderingExtractionPolicy = Some.Item (
           OrderingExtractionPolicy.DoNotExtractOrderings,
@@ -116,7 +116,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
       _handler.MoveCurrentStatementToSqlTable (
           _statementBuilder,
           _context,
-          info => new SqlTable (info, JoinSemantics.Inner),
+          info => new SqlTable (info),
           _stageMock,
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
@@ -291,7 +291,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
     {
       return new FromExpressionInfo (
           new SqlAppendedTable (
-              new SqlTable (new ResolvedSubStatementTableInfo ("sc", _statementBuilder.GetSqlStatement()), JoinSemantics.Inner),
+              new SqlTable (new ResolvedSubStatementTableInfo ("sc", _statementBuilder.GetSqlStatement())),
               JoinSemantics.Inner),
           extractedOrderings,
           Expression.Constant (0),
