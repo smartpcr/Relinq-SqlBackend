@@ -273,7 +273,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Matches (e => e == _mainFromClause.FromExpression),
                   Arg<ISqlPreparationContext>.Matches (c => c != _context),
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is (OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (preparedFromExpressionInfo);
 
@@ -305,7 +304,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Matches (e => e == constantExpression),
                   Arg<ISqlPreparationContext>.Matches (c => c != _context),
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is(OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (preparedFromExpressionInfo);
 
@@ -336,8 +334,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           mock => mock.PrepareFromExpression (
               Arg<Expression>.Matches (e => e == fromClause.FromExpression),
               Arg<ISqlPreparationContext>.Matches (c => c != _context),
-              Arg <Func<ITableInfo, SqlTable>>.Is.Anything,
-                  Arg.Is(OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
+              Arg.Is(OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (preparedFromExpressionInfo);
 
       _stageMock.Replay();
@@ -445,7 +442,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Matches (e => e == joinClause.InnerSequence),
                   Arg<ISqlPreparationContext>.Matches (c => c != _context),
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is(OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (preparedFromExpressionInfo);
       _stageMock
@@ -478,7 +474,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
               mock.PrepareFromExpression (
                   Arg<Expression>.Matches (e => e == joinClause.InnerSequence),
                   Arg<ISqlPreparationContext>.Is.Anything,
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is(OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (preparedFromExpressionInfo);
       _stageMock
@@ -612,19 +607,8 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
               mock.PrepareFromExpression (
                   Arg.Is (_mainFromClause.FromExpression),
                   Arg<ISqlPreparationContext>.Matches (c => c != _context),
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is(OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
-          .Return (preparedFromExpressionInfo)
-          .WhenCalled (mi => 
-          {
-            var tableCreator = (Func<ITableInfo, SqlTable>) mi.Arguments[2];
-            var sampleTableInfo = new UnresolvedTableInfo (typeof (Cook));
-            
-            var table = tableCreator (sampleTableInfo);
-
-            Assert.That (table, Is.TypeOf (typeof (SqlTable)));
-            Assert.That (table.TableInfo, Is.SameAs (sampleTableInfo));
-          });
+          .Return (preparedFromExpressionInfo);
       _stageMock.Replay();
 
       var result = _visitor.AddQuerySource (_mainFromClause, _mainFromClause.FromExpression);
@@ -732,7 +716,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
               mock.PrepareFromExpression (
                   Arg<Expression>.Matches (e => e == joinClause.InnerSequence),
                   Arg<ISqlPreparationContext>.Matches (c => c != _context),
-                  Arg <Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is(OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (preparedFromExpressionInfo);
       var preparedExpression = new SqlTableReferenceExpression (preparedFromExpressionInfo.AppendedTable.SqlTable);

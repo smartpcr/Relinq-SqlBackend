@@ -45,7 +45,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
     private ISqlPreparationContext _context;
     private IMethodCallTransformerProvider _methodCallTransformerProvider;
     private OrderingExtractionPolicy _someOrderingExtractionPolicy;
-    private Func<ITableInfo, SqlTable> _tableGenerator;
 
     [SetUp]
     public void SetUp ()
@@ -58,8 +57,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
       _someOrderingExtractionPolicy = Some.Item (
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection,
           OrderingExtractionPolicy.DoNotExtractOrderings);
-
-      _tableGenerator = info => new SqlTable (info);
     }
 
     [Test]
@@ -73,7 +70,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _generator,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           _someOrderingExtractionPolicy);
 
       Assert.That (result.AppendedTable.JoinSemantics, Is.EqualTo (JoinSemantics.Inner));
@@ -98,7 +94,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _generator,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           _someOrderingExtractionPolicy);
 
       Assert.That (result.AppendedTable.JoinSemantics, Is.EqualTo (JoinSemantics.Inner));
@@ -114,7 +109,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
       var customExpression = new CustomExpression (typeof (Cook[]));
 
       SqlPreparationFromExpressionVisitor.AnalyzeFromExpression (
-          customExpression, _stageMock, _generator, _methodCallTransformerProvider, _context, _tableGenerator, _someOrderingExtractionPolicy);
+          customExpression, _stageMock, _generator, _methodCallTransformerProvider, _context, _someOrderingExtractionPolicy);
     }
 
     [ExpectedException (typeof (NotSupportedException))]
@@ -126,7 +121,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
       var expression = new SqlEntityRefMemberExpression (entityExpression, memberInfo);
 
       SqlPreparationFromExpressionVisitor.AnalyzeFromExpression (
-          expression, _stageMock, _generator, _methodCallTransformerProvider, _context, _tableGenerator, _someOrderingExtractionPolicy);
+          expression, _stageMock, _generator, _methodCallTransformerProvider, _context, _someOrderingExtractionPolicy);
     }
 
     [Test]
@@ -147,7 +142,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _generator,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       Assert.That (result.AppendedTable.JoinSemantics, Is.EqualTo (JoinSemantics.Inner));
@@ -174,7 +168,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _generator,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           OrderingExtractionPolicy.DoNotExtractOrderings);
 
       Assert.That (result.AppendedTable.JoinSemantics, Is.EqualTo (JoinSemantics.Inner));
@@ -201,8 +194,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           stage,
           _generator,
           _methodCallTransformerProvider,
-          _context,
-          _tableGenerator, 
+          _context, 
           _someOrderingExtractionPolicy);
 
       Assert.That (result.AppendedTable.JoinSemantics, Is.EqualTo (JoinSemantics.Inner));
@@ -219,7 +211,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _generator,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           _someOrderingExtractionPolicy);
 
       Assert.That (result.AppendedTable.JoinSemantics, Is.EqualTo (JoinSemantics.Inner));
@@ -255,7 +246,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _generator,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           _someOrderingExtractionPolicy);
 
       var sqlTable = result.AppendedTable;
@@ -275,7 +265,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _generator,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           _someOrderingExtractionPolicy);
 
       Assert.That (result.AppendedTable, Is.Not.SameAs (sqlTable));
@@ -302,7 +291,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
       var expression = new SqlEntityRefMemberExpression (entityExpression, memberInfo);
 
       SqlPreparationFromExpressionVisitor.AnalyzeFromExpression (
-          expression, _stageMock, _generator, _methodCallTransformerProvider, _context, _tableGenerator, _someOrderingExtractionPolicy);
+          expression, _stageMock, _generator, _methodCallTransformerProvider, _context, _someOrderingExtractionPolicy);
     }
 
     [Test]
@@ -312,7 +301,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
       var expression = new SqlEntityConstantExpression (typeof (Cook), "test", new SqlLiteralExpression (12));
 
       SqlPreparationFromExpressionVisitor.AnalyzeFromExpression (
-          expression, _stageMock, _generator, _methodCallTransformerProvider, _context, _tableGenerator, _someOrderingExtractionPolicy);
+          expression, _stageMock, _generator, _methodCallTransformerProvider, _context, _someOrderingExtractionPolicy);
     }
 
     [Test]
@@ -528,7 +517,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           _stageMock,
           _methodCallTransformerProvider,
           _context,
-          _tableGenerator,
           orderingExtractionPolicy ?? _someOrderingExtractionPolicy);
     }
   }

@@ -60,7 +60,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
       var originalStatement = _statementBuilder.GetSqlStatement ();
 
       var fakeFromExpressionInfo = CreateFakeFromExpressionInfo(new Ordering[0]);
-      Func<ITableInfo, SqlTable> tableGenerator = info => new SqlTable (info);
 
       var someOrderingExtractionPolicy = Some.Item (
           OrderingExtractionPolicy.DoNotExtractOrderings,
@@ -70,7 +69,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
           .Expect (mock => mock.PrepareFromExpression (
               Arg<SqlSubStatementExpression>.Is.TypeOf,
               Arg.Is (_context),
-              Arg.Is (tableGenerator),
               Arg.Is (someOrderingExtractionPolicy)))
           .Return (fakeFromExpressionInfo)
           .WhenCalled (mi => 
@@ -83,7 +81,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
           });
       _stageMock.Replay ();
 
-      _handler.MoveCurrentStatementToSqlTable (_statementBuilder, _context, tableGenerator, _stageMock, someOrderingExtractionPolicy);
+      _handler.MoveCurrentStatementToSqlTable (_statementBuilder, _context, _stageMock, someOrderingExtractionPolicy);
 
       _stageMock.VerifyAllExpectations();
 
@@ -108,7 +106,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Is.Anything,
                   Arg<ISqlPreparationContext>.Is.Anything,
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg<OrderingExtractionPolicy>.Is.Anything))
           .Return (fakeFromExpressionInfo);
       _stageMock.Replay();
@@ -116,7 +113,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
       _handler.MoveCurrentStatementToSqlTable (
           _statementBuilder,
           _context,
-          info => new SqlTable (info),
           _stageMock,
           OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
@@ -135,7 +131,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Is.Anything,
                   Arg<ISqlPreparationContext>.Is.Anything,
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is (OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (fakeFromExpressionInfo);
       _stageMock.Replay();
@@ -183,7 +178,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Is.Anything,
                   Arg<ISqlPreparationContext>.Is.Anything,
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is (OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (fakeFromExpressionInfo);
       _stageMock.Replay ();
@@ -211,7 +205,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Is.Anything,
                   Arg<ISqlPreparationContext>.Is.Anything,
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is (OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (fakeFromExpressionInfo);
       _stageMock.Replay();
@@ -251,7 +244,6 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation.ResultOperatorHandle
               mock => mock.PrepareFromExpression (
                   Arg<Expression>.Is.Anything,
                   Arg<ISqlPreparationContext>.Is.Anything,
-                  Arg<Func<ITableInfo, SqlTable>>.Is.Anything,
                   Arg.Is (OrderingExtractionPolicy.ExtractOrderingsIntoProjection)))
           .Return (fakeFromExpressionInfo);
       _stageMock.Replay ();

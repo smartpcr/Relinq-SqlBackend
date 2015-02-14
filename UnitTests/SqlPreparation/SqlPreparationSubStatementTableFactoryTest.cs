@@ -67,10 +67,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
     {
       var statementWithoutOrderings = SqlStatementModelObjectMother.CreateSqlStatementWithCook();
 
-      var result = _factory.CreateSqlTableForStatement (
-          statementWithoutOrderings,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
+      var result = _factory.CreateSqlTableForStatement (statementWithoutOrderings, OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
 
@@ -96,10 +93,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           .Return (fakeSelectProjection);
       _stageMock.Replay ();
 
-      var result = _factory.CreateSqlTableForStatement (
-          _statementWithOrderings,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
+      var result = _factory.CreateSqlTableForStatement (_statementWithOrderings, OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
 
@@ -132,10 +126,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           .Return (fakeSelectProjection);
       _stageMock.Replay ();
 
-      var result = _factory.CreateSqlTableForStatement (
-          _statementWithOrderings,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
+      var result = _factory.CreateSqlTableForStatement (_statementWithOrderings, OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
 
@@ -154,10 +145,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           .Return (fakeSelectProjection);
       _stageMock.Replay ();
 
-      var result = _factory.CreateSqlTableForStatement (
-          _statementWithOrderings,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
+      var result = _factory.CreateSqlTableForStatement (_statementWithOrderings, OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
 
@@ -211,10 +199,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           .Return (fakeSelectProjection);
       _stageMock.Replay ();
 
-      _factory.CreateSqlTableForStatement (
-          _statementWithOrderings,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
+      _factory.CreateSqlTableForStatement (_statementWithOrderings, OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
     }
@@ -235,10 +220,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           .Return (fakeSelectProjection);
       _stageMock.Replay ();
 
-      var result = _factory.CreateSqlTableForStatement (
-          statement,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
+      var result = _factory.CreateSqlTableForStatement (statement, OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
 
       _stageMock.VerifyAllExpectations ();
 
@@ -259,19 +241,13 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
           .Return (fakeSelectProjection);
       _stageMock.Replay ();
 
-      _factory.CreateSqlTableForStatement (
-          _statementWithOrderings,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
+      _factory.CreateSqlTableForStatement (_statementWithOrderings, OrderingExtractionPolicy.ExtractOrderingsIntoProjection);
     }
 
     [Test]
     public void CreateSqlTableForSubStatement_WithOrderings_AndDoNotExtractOrderingsPolicy_ReturnsTableWithoutOrderings_WithOriginalProjection ()
     {
-      var result = _factory.CreateSqlTableForStatement (
-          _statementWithOrderings,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.DoNotExtractOrderings);
+      var result = _factory.CreateSqlTableForStatement (_statementWithOrderings, OrderingExtractionPolicy.DoNotExtractOrderings);
 
       _stageMock.VerifyAllExpectations ();
 
@@ -295,10 +271,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlPreparation
       };
       var statementWithOrderingsAndTopExpression = builder.GetSqlStatement ();
 
-      var result = _factory.CreateSqlTableForStatement (
-          statementWithOrderingsAndTopExpression,
-          info => new SqlTable (info),
-          OrderingExtractionPolicy.DoNotExtractOrderings);
+      var result = _factory.CreateSqlTableForStatement (statementWithOrderingsAndTopExpression, OrderingExtractionPolicy.DoNotExtractOrderings);
 
       _stageMock.VerifyAllExpectations ();
 
