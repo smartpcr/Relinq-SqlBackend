@@ -157,6 +157,15 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
     }
 
     [Test]
+    [ExpectedException (typeof (InvalidOperationException), ExpectedMessage = "UnresolvedDummyRowTableInfo is not valid at this point.")]
+    public void ApplyContext_VisitUnresolvedDummyRowTableInfo ()
+    {
+      var tableInfo = SqlStatementModelObjectMother.CreateUnresolvedDummyRowTableInfo();
+     
+      SqlContextTableInfoVisitor.ApplyContext (tableInfo, SqlExpressionContext.ValueRequired, _stageMock, _mappingresolutionContext);
+    }
+
+    [Test]
     [ExpectedException (typeof (InvalidOperationException), ExpectedMessage = "UnresolvedGroupReferenceTableInfo is not valid at this point.")]
     public void ApplyContext_UnresolvedGroupReferenceTableInfo ()
     {

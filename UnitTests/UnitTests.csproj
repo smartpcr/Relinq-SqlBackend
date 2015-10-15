@@ -293,6 +293,7 @@
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlRowNumberExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlStatementBuilderTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedCollectionJoinConditionExpressionTest.cs" />
+    <Compile Include="SqlStatementModel\Unresolved\UnresolvedDummyRowTableInfoTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedJoinConditionExpressionTest.cs" />
     <Compile Include="SqlStatementModel\SqlSpecificExpressions\SqlInExpressionTest.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedGroupReferenceTableInfoTest.cs" />
