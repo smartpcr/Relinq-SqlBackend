@@ -30,11 +30,11 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration.IntegrationTests.Resu
     public void DefaultIfEmpty ()
     {
       CheckQuery (
-          Cooks.DefaultIfEmpty (),
+          Cooks.DefaultIfEmpty(),
           "SELECT [t0].[ID],[t0].[FirstName],[t0].[Name],[t0].[IsStarredCook],[t0].[IsFullTimeCook],[t0].[SubstitutedID],[t0].[KitchenID],"
-          + "[t0].[KnifeID],[t0].[KnifeClassID] " 
+          + "[t0].[KnifeID],[t0].[KnifeClassID] "
           + "FROM (SELECT NULL AS [Empty]) AS [Empty] LEFT OUTER JOIN [CookTable] AS [t0] ON (1 = 1)",
-           row => (object) row.GetEntity<Cook> (
+          row => (object) row.GetEntity<Cook> (
               new ColumnID ("ID", 0),
               new ColumnID ("FirstName", 1),
               new ColumnID ("Name", 2),
@@ -47,9 +47,8 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration.IntegrationTests.Resu
     }
 
     [Test]
-    [ExpectedException (typeof (NotSupportedException),
-        ExpectedMessage =
-            "The DefaultIfEmpty operator is not supported if a default value is specified. Use the overload without a specified default value.")]
+    [ExpectedException (typeof (NotSupportedException), ExpectedMessage =
+        "The DefaultIfEmpty operator is not supported if a default value is specified. Use the overload without a specified default value.")]
     public void DefaultIfEmpty_WithDefaultValue ()
     {
       CheckQuery (Cooks.DefaultIfEmpty (null), "...");
@@ -59,9 +58,9 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration.IntegrationTests.Resu
     public void DefaultIfEmpty_InSubquery ()
     {
       CheckQuery (
-           from s in Cooks where (from s2 in Cooks select s2.ID).DefaultIfEmpty().Max() > 5 select s.Name,
-          "SELECT [t0].[Name] AS [value] FROM [CookTable] AS [t0] WHERE ((SELECT MAX([t1].[ID]) AS [value] FROM " +
-          "(SELECT NULL AS [Empty]) AS [Empty] LEFT OUTER JOIN [CookTable] AS [t1] ON (1 = 1)) > @1)",
+          from s in Cooks where (from s2 in Cooks select s2.ID).DefaultIfEmpty().Max() > 5 select s.Name,
+          "SELECT [t0].[Name] AS [value] FROM [CookTable] AS [t0] WHERE ((SELECT MAX([t1].[ID]) AS [value] FROM "
+          + "(SELECT NULL AS [Empty]) AS [Empty] LEFT OUTER JOIN [CookTable] AS [t1] ON (1 = 1)) > @1)",
           new CommandParameter ("@1", 5));
     }
 
@@ -70,7 +69,7 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration.IntegrationTests.Resu
     {
       CheckQuery (
           from c in Cooks
-          from k in Kitchens.Where(k => k == c.Kitchen).DefaultIfEmpty()
+          from k in Kitchens.Where (k => k == c.Kitchen).DefaultIfEmpty()
           select new { CookID = c.ID, KitchenID = k.ID },
           "SELECT [t1].[ID] AS [CookID],[q0].[ID] AS [KitchenID] "
           + "FROM [CookTable] AS [t1] "
