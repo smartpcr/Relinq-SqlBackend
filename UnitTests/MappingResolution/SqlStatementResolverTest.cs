@@ -215,6 +215,66 @@ namespace Remotion.Linq.SqlBackend.UnitTests.MappingResolution
     }
 
     [Test]
+    public void ResolveSqlTable_ResolvesJoinInfo_AddsNewJoinInfoToSqlTable()
+    {
+      var unresolvedJoinTableInfo1 = SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo_KitchenCook();
+      var joinedTable1 = SqlStatementModelObjectMother.CreateSqlTable (unresolvedJoinTableInfo1);
+      var originalJoinCondition1 = ExpressionHelper.CreateExpression (typeof (bool));
+      var resolvedJoinCondition1 = ExpressionHelper.CreateExpression (typeof (bool));
+      var originalJoin1 = new SqlJoin (joinedTable1, JoinSemantics.Left, originalJoinCondition1);
+      _sqlTable.AddJoin (originalJoin1);
+
+      var resolvedJoinTableInfo2 = SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo_KitchenRestaurant();
+      var joinedTable2 = SqlStatementModelObjectMother.CreateSqlTable (resolvedJoinTableInfo2);
+      var joinCondition2 = ExpressionHelper.CreateExpression (typeof (bool));
+      var originalJoin2 = new SqlJoin (joinedTable2, JoinSemantics.Left, joinCondition2);
+      _sqlTable.AddJoin (originalJoin2);
+
+      var unresolvedJoinTableInfo3 = SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo_CookSubstitution();
+      var joinedTable3 = SqlStatementModelObjectMother.CreateSqlTable (unresolvedJoinTableInfo3);
+      var joinCondition3 = ExpressionHelper.CreateExpression (typeof (bool));
+      var originalJoin3 = new SqlJoin (joinedTable3, JoinSemantics.Left, joinCondition3);
+
+      _stageMock
+          .Stub (mock => mock.ResolveTableInfo (_sqlTable.TableInfo, _mappingResolutionContext))
+          .Return (_fakeResolvedSimpleTableInfo);
+      _stageMock
+          .Expect (mock => mock.ResolveTableInfo (unresolvedJoinTableInfo1, _mappingResolutionContext))
+          .Return (SqlStatementModelObjectMother.CreateResolvedTableInfo (typeof (Cook)));
+      _stageMock
+          .Expect (mock => mock.ResolveTableInfo (resolvedJoinTableInfo2, _mappingResolutionContext))
+          .Return (SqlStatementModelObjectMother.CreateResolvedTableInfo (typeof (Restaurant)));
+      _stageMock
+          .Expect (mock => mock.ResolveTableInfo (unresolvedJoinTableInfo3, _mappingResolutionContext))
+          .Repeat.Never(); // Documents that the newly aded table will not be resolved. This means that real code needs to add already resolved tables.
+      _stageMock
+          .Expect (mock => mock.ResolveJoinCondition (originalJoinCondition1, _mappingResolutionContext))
+          .WhenCalled (mi=> _sqlTable.AddJoin (originalJoin3))
+          .Return (resolvedJoinCondition1);
+      _stageMock
+          .Expect (mock => mock.ResolveJoinCondition (joinCondition2, _mappingResolutionContext))
+          .Return (joinCondition2);
+      _stageMock
+          .Expect (mock => mock.ResolveJoinCondition (joinCondition3, _mappingResolutionContext))
+          .Repeat.Never(); // Documents that the newly added join will not be resolved. This means that real code needs to add already resolved joins.
+
+      _visitor.ResolveSqlTable (_sqlTable);
+
+      _stageMock.VerifyAllExpectations();
+      var orderedJoins = _sqlTable.OrderedJoins.ToArray();
+      Assert.That (orderedJoins.Length, Is.EqualTo (3));
+
+      Assert.That (orderedJoins[0], Is.Not.SameAs (originalJoin1));
+      Assert.That (orderedJoins[0].JoinedTable, Is.SameAs (originalJoin1.JoinedTable));
+      Assert.That (orderedJoins[0].JoinSemantics, Is.EqualTo (originalJoin1.JoinSemantics));
+      Assert.That (orderedJoins[0].JoinCondition, Is.SameAs (resolvedJoinCondition1));
+
+      Assert.That (orderedJoins[1], Is.SameAs (originalJoin2));
+
+      Assert.That (orderedJoins[2], Is.SameAs (originalJoin3));
+    }
+
+    [Test]
     public void ResolveSqlTable_WithAlreadyResolvedJoinConditions_LeavesJoinsUntouchtes ()
     {
       var joinedTable = SqlStatementModelObjectMother.CreateSqlTable (SqlStatementModelObjectMother.CreateUnresolvedJoinTableInfo_KitchenCook());
