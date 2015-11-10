@@ -263,6 +263,7 @@
     <Compile Include="SqlStatementModel\SqlStatementBuilder.cs" />
     <Compile Include="SqlStatementModel\SqlSubStatementExpression.cs" />
     <Compile Include="SqlStatementModel\SqlTable.cs" />
+    <Compile Include="SqlStatementModel\Unresolved\NullJoinConditionExpression.cs" />
     <Compile Include="SqlStatementModel\Unresolved\UnresolvedDummyRowTableInfo.cs" />
     <Compile Include="SqlStatementModel\Unresolved\ISqlEntityRefMemberExpressionVisitor.cs" />
     <Compile Include="SqlStatementModel\Unresolved\ISqlTableReferenceExpressionVisitor.cs" />
