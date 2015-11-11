@@ -20,7 +20,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using NUnit.Framework;
 using Remotion.Linq.Clauses.StreamedData;
-using Remotion.Linq.Development.UnitTesting.Clauses.StreamedData;
 using Remotion.Linq.SqlBackend.SqlGeneration;
 using Remotion.Linq.SqlBackend.SqlStatementModel;
 using Remotion.Linq.SqlBackend.SqlStatementModel.Resolved;
@@ -36,14 +35,12 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration
   {
     private SqlCommandBuilder _commandBuilder;
     private ISqlGenerationStage _stageMock;
-    private TestableSqlTableAndJoinTextGenerator _generator;
 
     [SetUp]
     public void SetUp ()
     {
       _stageMock = MockRepository.GenerateStrictMock<ISqlGenerationStage>();
       _commandBuilder = new SqlCommandBuilder();
-      _generator = new TestableSqlTableAndJoinTextGenerator (_commandBuilder, _stageMock);
     }
 
     [Test]
@@ -407,27 +404,35 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration
     }
 
     [Test]
-    public void VisitSimpleTableInfo ()
+    public void GenerateSql_WithResolvedSimpleTableInfo ()
     {
       var simpleTableInfo = new ResolvedSimpleTableInfo (typeof (Cook), "CookTable", "c");
 
-      _generator.VisitSimpleTableInfo (simpleTableInfo);
+      SqlTableAndJoinTextGenerator.GenerateSql (
+          new SqlAppendedTable (new SqlTable (simpleTableInfo), JoinSemantics.Inner),
+          _commandBuilder,
+          _stageMock,
+          isFirstTable: true);
 
       Assert.That (_commandBuilder.GetCommandText (), Is.EqualTo ("[CookTable] AS [c]"));
     }
 
     [Test]
-    public void VisitSimpleTableInfo_FullQualifiedTableNameGetsSplit ()
+    public void GenerateSql_WithResolvedSimpleTableInfo_FullQualifiedTableNameGetsSplit ()
     {
       var simpleTableInfo = new ResolvedSimpleTableInfo (typeof (Cook), "TestDomain.dbo.CookTable", "c");
 
-      _generator.VisitSimpleTableInfo (simpleTableInfo);
+      SqlTableAndJoinTextGenerator.GenerateSql (
+          new SqlAppendedTable (new SqlTable (simpleTableInfo), JoinSemantics.Inner),
+          _commandBuilder,
+          _stageMock,
+          isFirstTable: true);
 
       Assert.That (_commandBuilder.GetCommandText(), Is.EqualTo ("[TestDomain].[dbo].[CookTable] AS [c]"));
     }
 
     [Test]
-    public void VisitSubStatementTableInfo ()
+    public void GenerateSql_WithResolvedSubStatementTableInfo ()
     {
       var sqlStatement = new SqlStatementBuilder (SqlStatementModelObjectMother.CreateSqlStatement_Resolved (typeof (Cook[])))
       {
@@ -440,14 +445,18 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration
           .WhenCalled (mi => ((SqlCommandBuilder) mi.Arguments[0]).Append ("XXX"));
       _stageMock.Replay();
 
-      _generator.VisitSubStatementTableInfo (resolvedSubTableInfo);
+      SqlTableAndJoinTextGenerator.GenerateSql (
+          new SqlAppendedTable (new SqlTable (resolvedSubTableInfo), JoinSemantics.Inner),
+          _commandBuilder,
+          _stageMock,
+          isFirstTable: true);
 
       _stageMock.VerifyAllExpectations();
       Assert.That (_commandBuilder.GetCommandText (), Is.EqualTo ("(XXX) AS [cook]"));
     }
 
     [Test]
-    public void VisitResolvedJoinedGroupingTableInfo ()
+    public void GenerateSql_WithResolvedJoinedGroupingTableInfo ()
     {
       var sqlStatement = new SqlStatementBuilder (SqlStatementModelObjectMother.CreateSqlStatement_Resolved (typeof (Cook[])))
       {
@@ -460,7 +469,11 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration
           .WhenCalled (mi => ((SqlCommandBuilder) mi.Arguments[0]).Append ("XXX"));
       _stageMock.Replay ();
 
-      _generator.VisitJoinedGroupingTableInfo (resolvedJoinedGroupingTableInfo);
+      SqlTableAndJoinTextGenerator.GenerateSql (
+          new SqlAppendedTable (new SqlTable (resolvedJoinedGroupingTableInfo), JoinSemantics.Inner),
+          _commandBuilder,
+          _stageMock,
+          isFirstTable: true);
 
       _stageMock.VerifyAllExpectations ();
       Assert.That (_commandBuilder.GetCommandText (), Is.EqualTo ("(XXX) AS [cook]"));

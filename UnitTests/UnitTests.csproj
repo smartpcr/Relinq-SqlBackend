@@ -216,7 +216,6 @@
     <Compile Include="SqlGeneration\SqlGeneratingSelectExpressionVisitorTest.cs" />
     <Compile Include="SqlGeneration\TestableSqlCustomTextGeneratorExpression.cs" />
     <Compile Include="SqlGeneration\TestableSqlGeneratingOuterSelectExpressionVisitor.cs" />
-    <Compile Include="SqlGeneration\TestableSqlTableAndJoinTextGenerator.cs" />
     <Compile Include="SqlGeneration\TestExtensionExpressionWithoutChildren.cs" />
     <Compile Include="SqlPreparation\MethodCallTransformers\ConcatMethodCallTransformerTest.cs" />
     <Compile Include="SqlPreparation\MethodCallTransformers\ContainsFreetextMethodCallTransformerTest.cs" />
