@@ -407,5 +407,29 @@ namespace Remotion.Linq.SqlBackend.UnitTests.SqlGeneration.IntegrationTests
           + "WHERE ([q1].[value] = [c].[ID])",
           new CommandParameter ("@1", 1));
     }
+
+    [Test]
+    public void SubQuery_SelectingConvertedValue ()
+    {
+      CheckQuery (
+          Kitchens.Select (k => Kitchens.Select (k2 => k2.Name).Contains (k.Name).ToString()),
+          "SELECT CONVERT(NVARCHAR(MAX), "
+          + "CONVERT(BIT, "
+          + "CASE WHEN [t0].[Name] IN (SELECT [t1].[Name] FROM [KitchenTable] AS [t1]) THEN 1 ELSE 0 END"
+          + ")"
+          + ") AS [value] "
+          + "FROM [KitchenTable] AS [t0]");
+    }
+
+    [Test]
+    public void SubQuery_SelectingConvertedValueFromMultiPartProperty ()
+    {
+      CheckQuery (
+          Knives.Select (k => Knives.Select (k2 => k2.ID.Value).Contains (k.ID.Value)),
+          "SELECT CONVERT(BIT, "
+          + "CASE WHEN [t0].[ID] IN (SELECT [t1].[ID] FROM [KnifeTable] AS [t1]) THEN 1 ELSE 0 END"
+          + ") AS [value] "
+          + "FROM [KnifeTable] AS [t0]");
+    }
   }
 }
